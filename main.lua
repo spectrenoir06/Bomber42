@@ -10,15 +10,20 @@
 #                                                                              #
 # ***************************************************************************--]]
 
+local Perso = require "class/Perso"
+local Map 	= require "class/Map"
+
 function love.load()
-	map = Map:new("map/exemple.json","map/tileset.png")
+	map 	= Map:new("map/exemple.json","map/tileset.png")
+	perso 	= Perso:new(32,32);
 end
 
 
 function love.draw()
 	map:draw(0,0)
+	perso:draw()
 end
 
 function love.mousepressed(x,y,button)
-	
+
 end

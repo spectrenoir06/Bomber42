@@ -1,5 +1,5 @@
-require ("lib.json")
-local class = require 'lib.middleclass'
+require ("class/json")
+local class = require 'class/middleclass'
 
 local Map = class('Map')
 
