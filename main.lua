@@ -14,14 +14,14 @@ local Perso = require "class/Perso"
 local Map 	= require "class/Map"
 
 function love.load()
-	map 	= Map:new("map/MapBomberMan..json","map/tileset.png")
+	map 	= Map:new("map/map1.json","map/tileset.png")
 	perso 	= Perso:new(32,32);
 end
 
 
 function love.draw()
 	map:draw(0,0)
-	Perso:draw()
+	perso:draw()
 end
 
 function love.update(dt)

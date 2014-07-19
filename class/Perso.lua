@@ -1,13 +1,15 @@
-local class		= require 'class/middleclass'
+local class = require 'class/middleclass'
 local Sprite 	= require 'class/Sprite'
 
 local Perso = class('Perso')
 
 function Perso:initialize()
   	
-  	self.x =  32
-  	self.y =  32
+  	self.posX =  32
+  	self.posY =  32
 	
+	print(self.x)
+
 	self.dX = 0
 	self.dY = 0
 	self.test = Sprite:new("texture/sprite.png", 32, 32)
@@ -16,9 +18,10 @@ end
 
 function Perso:draw()
 
+	--print(self.x)
 	--love.graphics.rectangle( "fill", self.posX, self.posY, 32, 32)
-	print(self.x)
-	--self.test:drawframe(self.posX, self.posY, 1)
+	--print(self.x)
+	self.test:drawframe(self.posX, self.posY, 1)
 
 end
 
