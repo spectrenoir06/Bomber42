@@ -1,51 +1,115 @@
-local class		= require 'class/middleclass'
+local class = require 'class/middleclass'
 local Sprite 	= require 'class/Sprite'
 
 local Perso = class('Perso')
 
-function Perso:initialize()
+function Perso:initialize(posX, posY)
   	
-  	self.x =  32
-  	self.y =  32
-	
+  	self.posX =  posX or 64
+  	self.posY =  posY or 64
+  	self.speed = 300
+
+	print(self.x)
+
 	self.dX = 0
 	self.dY = 0
-	self.test = Sprite:new("texture/sprite.png", 32, 32)
+
+	self.lX = 64
+	self.lY = 64
+
+	self.sprite = Sprite:new("texture/sprite.png", 64, 64)
+	self.direction = 2
+
+	self.sprite:addAnimation({9,10,11})
+	self.sprite:addAnimation({0,1,2})
+	self.sprite:addAnimation({3,4,5})
+	self.sprite:addAnimation({6,7,8})
 
 end
 
 function Perso:draw()
-
-	--love.graphics.rectangle( "fill", self.posX, self.posY, 32, 32)
-	print(self.x)
-	--self.test:drawframe(self.posX, self.posY, 1)
-
+	self.sprite:draw(self.posX, self.posY)
 end
 
 function Perso:update(dt)
 	
-	--self.sprite:update(dt)
+	self.sprite:update(dt)
 
-	self.posX = self.posX + (self.dX * dt)
-	self.posY = self.posY + (self.dY * dt)
-	
+	if self.move then
+		if self.direction == 1 then
+          	self.posY 	= self.posY - 8
+           	self.pixel	= self.pixel + 8
+        elseif self.direction == 2 then
+          	self.posY 	= self.posY + 8
+           	self.pixel	= self.pixel + 8
+       	elseif self.direction == 3 then
+           	self.posX 	= self.posX - 8
+          	self.pixel 	= self.pixel + 8
+      	elseif self.direction == 4 then
+          	self.posX 	= self.posX + 8
+           	self.pixel	= self.pixel + 8
+      	end
+       	if self.pixel == 64 then
+         	self.move = false
+       	end
+    end 
 end
 
 
 function Perso:up()
-	self.dY = -1;
+	if not self.move then
+		if self.direction == 1 then
+			self.move = true
+			self.pixel = 0
+			self.sprite:setAnim(1)
+		else
+			self.direction = 1
+		end
+	end
 end
 
 function Perso:down()
-	self.dY = 1;
+	if not self.move then
+		if self.direction == 2 then
+			self.move = true
+			self.pixel = 0
+			self.sprite:setAnim(2)
+		else
+			self.direction = 2
+		end
+	end
 end
 
 function Perso:left()
-	self.dX = -1;
+	if not self.move then
+		if self.direction == 3 then
+			self.move = true
+			self.pixel = 0
+			self.sprite:setAnim(3)
+		else
+			self.direction = 3
+		end
+	end
 end
 
 function Perso:right()
-	self.dX = 1;
+	if not self.move then
+		if self.direction == 4 then
+			self.move = true
+			self.pixel = 0
+			self.sprite:setAnim(4)
+		else
+			self.direction = 4
+		end
+	end
+end
+
+function Perso:getPosX()
+	return self.posX
+end
+
+function Perso:getPosY()
+	return self.posX
 end
 
 return Perso
