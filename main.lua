@@ -13,7 +13,7 @@
 local Game = require "class/Game"
 
 function love.load()
-	game = Game:new(0.5);
+	game = Game:new(0.3);
 end
 
 

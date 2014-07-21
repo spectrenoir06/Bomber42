@@ -1,5 +1,6 @@
 local class 	= require 'class/middleclass'
 local Sprite 	= require 'class/Sprite'
+local Bombe = require "class/Bombe"
 
 local Perso = class('Perso')
 
@@ -51,8 +52,8 @@ function Perso:update(dt)
            	self.pixel	= self.pixel + 8
       	end
        	if self.pixel == 64 then
-       		--print(self:col(0,0))
          	self.move = false
+         	--print(json.encode(self.game.obj))
        	end
     end
 end
@@ -106,6 +107,12 @@ function Perso:right()
 			self.sprite:setAnim(4)
 			self.direction = 4
 		end
+	end
+end
+
+function Perso:pose()
+	if not self.move then
+		table.insert(self.game.obj, Bombe:new(self.posX, self.posY, self, self.game) )
 	end
 end
 
