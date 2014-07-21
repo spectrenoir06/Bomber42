@@ -1,15 +1,14 @@
-local class = require 'class/middleclass'
+local class 	= require 'class/middleclass'
 local Sprite 	= require 'class/Sprite'
 
 local Perso = class('Perso')
 
-function Perso:initialize(posX, posY)
+function Perso:initialize(posX, posY, game)
   	
   	self.posX =  posX or 64
   	self.posY =  posY or 64
-  	self.speed = 300
+  	self.speed = 200
 
-	print(self.x)
 
 	self.dX = 0
 	self.dY = 0
@@ -19,6 +18,8 @@ function Perso:initialize(posX, posY)
 
 	self.sprite = Sprite:new("texture/sprite.png", 64, 64)
 	self.direction = 2
+
+	self.game = game
 
 	self.sprite:addAnimation({9,10,11})
 	self.sprite:addAnimation({0,1,2})
@@ -34,7 +35,7 @@ end
 function Perso:update(dt)
 	
 	self.sprite:update(dt)
-
+	--print(self:col(0,0))
 	if self.move then
 		if self.direction == 1 then
           	self.posY 	= self.posY - 8
@@ -50,19 +51,23 @@ function Perso:update(dt)
            	self.pixel	= self.pixel + 8
       	end
        	if self.pixel == 64 then
+       		--print(self:col(0,0))
          	self.move = false
        	end
-    end 
+    end
 end
 
+function Perso:col(x, y)
+	return self.game.map.layers[2].data[(self.posX/64)+x][(self.posY/64)+y]
+end
 
 function Perso:up()
 	if not self.move then
-		if self.direction == 1 then
+		if self.direction == 1 and self:col(0,-1)==5 then
 			self.move = true
 			self.pixel = 0
-			self.sprite:setAnim(1)
 		else
+			self.sprite:setAnim(1)
 			self.direction = 1
 		end
 	end
@@ -70,11 +75,11 @@ end
 
 function Perso:down()
 	if not self.move then
-		if self.direction == 2 then
+		if self.direction == 2 and self:col(0,1)==5 then
 			self.move = true
 			self.pixel = 0
-			self.sprite:setAnim(2)
 		else
+			self.sprite:setAnim(2)
 			self.direction = 2
 		end
 	end
@@ -82,11 +87,11 @@ end
 
 function Perso:left()
 	if not self.move then
-		if self.direction == 3 then
+		if self.direction == 3 and self:col(-1,0)==5 then
 			self.move = true
 			self.pixel = 0
-			self.sprite:setAnim(3)
 		else
+			self.sprite:setAnim(3)
 			self.direction = 3
 		end
 	end
@@ -94,11 +99,11 @@ end
 
 function Perso:right()
 	if not self.move then
-		if self.direction == 4 then
+		if self.direction == 4 and self:col(1,0)==5 then
 			self.move = true
 			self.pixel = 0
-			self.sprite:setAnim(4)
 		else
+			self.sprite:setAnim(4)
 			self.direction = 4
 		end
 	end

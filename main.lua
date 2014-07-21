@@ -10,31 +10,19 @@
 #                                                                              #
 # ***************************************************************************--]]
 
-local Perso = require "class/Perso"
-local Map 	= require "class/Map"
+local Game = require "class/Game"
 
 function love.load()
-	map 	= Map:new("map/map1.json","map/tileset.png")
-	perso 	= Perso:new(64,64);
+	game = Game:new(0.5);
 end
 
 
 function love.draw()
-	map:draw(0,0)
-	perso:draw()
+	game:draw()
 end
 
 function love.update(dt)
-	perso:update(dt)
-	if love.keyboard.isDown("up") then
-		perso:up()
-	elseif love.keyboard.isDown("down") then
-		perso:down()
-	elseif love.keyboard.isDown("left") then
-		perso:left()
-	elseif love.keyboard.isDown("right") then
-		perso:right()
-	end
+	game:update(dt);
 end
 
 function love.mousepressed(x,y,button)

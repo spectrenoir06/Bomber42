@@ -33,7 +33,7 @@ function Map:initialize(fichier,texture) --cree une map
     self.fichier 	= 	fichier
     self.json 			= 	json.decode(love.filesystem.read( fichier, nil ))
     self.layers 		= 	map_read(self.json)
-	if texture==nil then texture = self.json.tilesets[1].image end
+	if texture == nil then texture = self.json.tilesets[1].image end
 	
     self.LX			=	self.json.width
     self.LY			=	self.json.height
@@ -71,7 +71,7 @@ end
     
     
     
-function Map:repaint(nb)
+function Map:update(nb)
     if nb then
         self.spriteBatchs[nb]:clear()
         for x=0,(self.LX)-1 do
