@@ -112,6 +112,11 @@ end
 
 function Perso:pose()
 	if not self.move then
+		for k,v in ipairs(self.game.obj) do
+			if v.posX == self.posX and v.posY == self.posY then
+				return
+			end
+		end
 		table.insert(self.game.obj, Bombe:new(self.posX, self.posY, self, self.game) )
 	end
 end

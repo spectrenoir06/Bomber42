@@ -42,7 +42,7 @@ function Game:update(dt)
 	for k,v in ipairs(self.obj) do
 		v:update(dt)
 		if v.time < 0 then
-			self.obj[k] = nil
+			table.remove(self.obj,k)
 		end
 	end
 

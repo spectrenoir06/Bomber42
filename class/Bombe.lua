@@ -10,6 +10,7 @@ function Bombe:initialize(posX, posY, perso, game)
   	self.sprite = Sprite:new("texture/bombe.png", 64, 64)
   	self.time = 3
   	self.game = game
+  	self.perso = perso
   	self.sprite:addAnimation({1})
 
 end
@@ -34,6 +35,19 @@ end
 function Bombe:explode()
 
 	self.game.sfxBomb:play()
+
+	if self.game.map:getTile(self.posX/64 - 1, self.posY/64, 2)[2]==2 then
+		self.game.map:setTile(self.posX/64 - 1, self.posY/64, 5, 2)
+	end
+	if self.game.map:getTile(self.posX/64 + 1, self.posY/64, 2)[2]==2 then
+		self.game.map:setTile(self.posX/64 + 1, self.posY/64, 5, 2)
+	end
+	if self.game.map:getTile(self.posX/64, self.posY/64 + 1, 2)[2]==2 then
+		self.game.map:setTile(self.posX/64, self.posY/64 + 1, 5, 2)
+	end
+	if self.game.map:getTile(self.posX/64, self.posY/64 - 1, 2)[2]==2 then
+		self.game.map:setTile(self.posX/64, self.posY/64 - 1, 5, 2)
+	end
 
 end
 
